@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 
+var through2 = require('through2')
 var minimist = require('minimist')
 var http = require('./index')
 var argv = minimist(process.argv.slice(2), {
-  boolean: ['body']
+  alias: {headers: 'I'},
+  boolean: ['body', 'headers']
 })
 
 if (argv._.length < 1) {
@@ -22,4 +24,33 @@ if (argv.body) {
 } else {
   stream.end()
 }
-stream.pipe(process.stdout)
+
+var out = process.stdout
+if (argv.headers) {
+  out = printHeadersStream(stream)
+  out.pipe(process.stdout)
+}
+
+stream.pipe(out)
+
+function printHeadersStream(stream) {
+  var done = false
+  return through2(function(data, enc, cb) {
+    if (!done) {
+      done = true
+      printHeaders(stream.res.headers)
+      console.log()
+    }
+
+    this.push(data)
+    cb()
+  })
+}
+
+function printHeaders(h) {
+  for (var k in h) {
+    if (h.hasOwnProperty(k)) {
+      console.log(k +': ' + h[k])
+    }
+  }
+}
