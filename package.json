@@ -1,0 +1,33 @@
+{
+  "name": "http-client-stream",
+  "version": "0.1.0",
+  "description": "make http streams",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jbenet/node-http-client-stream"
+  },
+  "bin": {
+    "http-stream": "./cli.js"
+  },
+  "keywords": [
+    "http",
+    "client",
+    "stream"
+  ],
+  "author": "Juan Benet <juan@benet.ai> (http://juan.benet.ai/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jbenet/node-http-client-stream/issues"
+  },
+  "homepage": "https://github.com/jbenet/node-http-client-stream",
+  "dependencies": {
+    "duplexify": "^3.2.0",
+    "minimist": "^1.1.1",
+    "range-parser": "^1.0.2",
+    "url": "^0.10.3"
+  }
+}
