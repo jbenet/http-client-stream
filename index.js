@@ -46,6 +46,7 @@ var endpoint = function (http, url, opts) {
       if (!/2\d\d/.test(res.statusCode)) return stream.destroy(error(res))
       stream.res = res
       stream.setReadable(res)
+      stream.emit('response', res)
     })
 
     return stream
